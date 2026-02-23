@@ -1,0 +1,19 @@
+// Это игра про лягушку
+DEFINE_OBJECT PLAYER
+    SPRITESET "frog.chr"
+    HITBOX 8, 16
+    GRAVITY 0.6
+    SPEED 2.5
+    ANIMATION idle, [0,1], speed=8
+    ANIMATION walk, [2,3,4,5], speed=4
+END_OBJECT
+
+LEVEL_1:
+    LOAD_BACKGROUND "forest.map"
+    PLACE_OBJECT PLAYER, start_x=50, start_y=100
+    PLACE_ENEMY "snail", x=200, y=100, patrol=left
+    ON_COLLISION PLAYER, "snail", CALL "hurt_player"
+    IF (PRESSED_START) GOTO "LEVEL_1"
+    WAIT_FRAMES(60)
+    PLAY_MUSIC "overworld"
+    SOUND_PLAY "jump"
